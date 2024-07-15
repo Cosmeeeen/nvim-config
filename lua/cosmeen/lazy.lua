@@ -25,28 +25,28 @@ require("lazy").setup({
   spec = {
     -- import your plugins
     {
-	    'nvim-telescope/telescope.nvim', tag = '0.1.8',
-	    dependencies = { 'nvim-lua/plenary.nvim' }
+      'nvim-telescope/telescope.nvim', tag = '0.1.8',
+      dependencies = { 'nvim-lua/plenary.nvim' }
     },
     {
-	    "folke/tokyonight.nvim",
-	    lazy = false,
-	    priority = 1000,
-	    opts = {},
+      "folke/tokyonight.nvim",
+      lazy = false,
+      priority = 1000,
+      opts = {},
     },
     {
-	    "nvim-treesitter/nvim-treesitter",
-	    build = ":TSUpdate"
+      "nvim-treesitter/nvim-treesitter",
+      build = ":TSUpdate"
     },
     {
-	    "ThePrimeagen/harpoon",
-	    dependencies = { "nvim-lua/plenary.nvim" }
+      "ThePrimeagen/harpoon",
+      dependencies = { "nvim-lua/plenary.nvim" }
     },
     {
-	    "mbbill/undotree"
+      "mbbill/undotree"
     },
     {
-	    "tpope/vim-fugitive"
+      "tpope/vim-fugitive"
     },
     {'williamboman/mason.nvim'},
     {'williamboman/mason-lspconfig.nvim'},
@@ -57,9 +57,17 @@ require("lazy").setup({
     {'L3MON4D3/LuaSnip'},
     {'ThePrimeagen/vim-be-good'},
     {
-        'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' }
-    }
+      'nvim-lualine/lualine.nvim',
+      dependencies = { 'nvim-tree/nvim-web-devicons' }
+    },
+    {
+      'windwp/nvim-autopairs',
+      event = "InsertEnter",
+      config = true,
+      opts = {}
+    },
+    {'windwp/nvim-ts-autotag'},
+    {'lewis6991/gitsigns.nvim'}
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
