@@ -12,3 +12,9 @@ vim.keymap.set("n", "<leader>Y", "\"+Y")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
+vim.api.nvim_create_user_command("Cwd", function()
+    local path = vim.fn.expand("%:p")
+    vim.fn.setreg("+", path)
+    vim.notify('Copied "' .. path .. '" to the clipboard!')
+end, {})
+
