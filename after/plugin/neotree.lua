@@ -9,6 +9,14 @@ require('neo-tree').setup({
   hijack_netrw_behavior = "open_current",
   window = {
     position = "current"
+  },
+  filesystem = {
+    filtered_items = {
+      visible = true, -- when true, they will just be displayed differently than normal items
+      hide_dotfiles = true, -- these are left as true in order to be displayed different than non-hidden files
+      hide_gitignored = true,
+      hide_hidden = true, -- only works on Windows for hidden files/directories
+    }
   }
 })
 
