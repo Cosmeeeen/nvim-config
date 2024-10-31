@@ -17,6 +17,14 @@ require('neo-tree').setup({
       hide_gitignored = true,
       hide_hidden = true, -- only works on Windows for hidden files/directories
     }
+  },
+  event_handlers = {
+    {
+      event = "neo_tree_window_after_open",
+      handler = function()
+        vim.cmd("setlocal relativenumber")
+        vim.cmd("setlocal number")
+      end
+    }
   }
 })
-
