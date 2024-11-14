@@ -6,5 +6,6 @@ function CustomColors(color)
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
-CustomColors()
+-- Used for Tokyonight theme, not needed for bamboo as it's done through the config
+-- CustomColors()
 

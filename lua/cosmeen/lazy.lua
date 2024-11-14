@@ -28,11 +28,22 @@ require("lazy").setup({
       'nvim-telescope/telescope.nvim', tag = '0.1.8',
       dependencies = { 'nvim-lua/plenary.nvim' }
     },
+--    {
+--      "folke/tokyonight.nvim",
+--      lazy = false,
+--      priority = 1000,
+--      opts = {},
+--    },
     {
-      "folke/tokyonight.nvim",
+      'ribru17/bamboo.nvim',
       lazy = false,
       priority = 1000,
-      opts = {},
+      config = function()
+        require('bamboo').setup {
+          transparent = true,
+        }
+        require('bamboo').load()
+      end,
     },
     {
       "nvim-treesitter/nvim-treesitter",
