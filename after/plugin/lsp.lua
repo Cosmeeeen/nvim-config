@@ -31,3 +31,24 @@ require('mason-lspconfig').setup({
     },
 })
 
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
+  pattern = ".*",
+  callback = function()
+    vim.bo.filetype = "json"
+  end,
+})
+
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
+  pattern = ".bashrc",
+  callback = function()
+    vim.bo.filetype = "sh"
+  end,
+})
+
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
+  pattern = ".gitignore",
+  callback = function()
+    vim.bo.filetype = "git"
+  end,
+})
+
