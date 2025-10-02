@@ -18,12 +18,31 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
-  -- Enable formatting on save for the attached client
-  if client.supports_method("textDocument/formatting") then
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      command = "lua vim.lsp.buf.format()",
-    })
+  -- Disable LSP formatting for JS/TS files only (handled by conform.nvim with Prettier)
+  local buf_ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+  local js_ts_filetypes = {
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    "json",
+    "html",
+    "css",
+    "scss",
+  }
+
+  local is_js_ts = false
+  for _, ft in ipairs(js_ts_filetypes) do
+    if buf_ft == ft then
+      is_js_ts = true
+      break
+    end
+  end
+
+  -- Only disable LSP formatting for JS/TS files, allow it for other languages
+  if is_js_ts and client.supports_method("textDocument/formatting") then
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
   end
 end)
 
@@ -39,12 +58,6 @@ require('mason-lspconfig').setup({
   },
 })
 
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = ".*",
-  callback = function()
-    vim.bo.filetype = "json"
-  end,
-})
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   pattern = ".bashrc",
@@ -59,3 +72,24 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     vim.bo.filetype = "git"
   end,
 })
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = ".env",
+  callback = function()
+    vim.bo.filetype = "dotenv"
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = ".vodrc",
+  callback = function()
+    vim.bo.filetype = "json"
+  end,
+})
+
+-- vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+--   pattern = ".*rc",
+--   callback = function()
+--     vim.bo.filetype = "json"
+--   end,
+-- })

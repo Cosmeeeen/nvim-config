@@ -18,4 +18,3 @@ vim.api.nvim_create_user_command("Cwd", function()
   vim.fn.setreg("+", path)
   vim.notify('Copied "' .. path .. '" to the clipboard!')
 end, {})
-
