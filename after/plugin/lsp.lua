@@ -55,6 +55,30 @@ require('mason-lspconfig').setup({
     function(server_name)
       require('lspconfig')[server_name].setup({})
     end,
+    -- Explicit ESLint LSP configuration
+    eslint = function()
+      require('lspconfig').eslint.setup({
+        on_attach = function(client, bufnr)
+          -- Run ESLint code actions on save
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            command = "EslintFixAll",
+          })
+        end,
+        settings = {
+          workingDirectories = { mode = "auto" },
+        },
+        -- Ensure ESLint attaches to the right filetypes
+        filetypes = {
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
+          "vue",
+          "svelte",
+        },
+      })
+    end,
   },
 })
 
