@@ -59,14 +59,14 @@ require('mason-lspconfig').setup({
     eslint = function()
       require('lspconfig').eslint.setup({
         on_attach = function(client, bufnr)
-          -- Run ESLint code actions on save
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            command = "EslintFixAll",
-          })
+          -- ESLint auto-fix now handled by conform.nvim
+          -- Keep LSP active for diagnostics and code actions
         end,
         settings = {
           workingDirectories = { mode = "auto" },
+          experimental = {
+            useFlatConfig = true,  -- Support ESLint 9+ flat configs
+          },
         },
         -- Ensure ESLint attaches to the right filetypes
         filetypes = {

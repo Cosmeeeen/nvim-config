@@ -1,10 +1,10 @@
 require("conform").setup({
   formatters_by_ft = {
-    -- JavaScript/TypeScript (use Prettier for project configs)
-    javascript = { "prettierd", "prettier", stop_after_first = true },
-    typescript = { "prettierd", "prettier", stop_after_first = true },
-    javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-    typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+    -- JavaScript/TypeScript: Run ESLint THEN Prettier
+    javascript = { "eslint_d", "prettierd", "prettier" },
+    typescript = { "eslint_d", "prettierd", "prettier" },
+    javascriptreact = { "eslint_d", "prettierd", "prettier" },
+    typescriptreact = { "eslint_d", "prettierd", "prettier" },
 
     -- Web formats
     json = { "prettierd", "prettier", stop_after_first = true },
@@ -31,14 +31,15 @@ require("conform").setup({
     -- rust = {},
   },
   format_on_save = function(bufnr)
-    -- Disable autoformat for files without a formatter configured
-    if not require("conform").get_formatter_info(bufnr).available then
+    -- Exclude node_modules
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
+    if bufname:match("/node_modules/") then
       return
     end
 
     return {
-      timeout_ms = 500,
-      lsp_fallback = true,
+      timeout_ms = 5000,  -- Comfortable margin for sequential eslint_d + prettierd
+      lsp_fallback = false,  -- We have dedicated formatters
     }
   end,
 })
