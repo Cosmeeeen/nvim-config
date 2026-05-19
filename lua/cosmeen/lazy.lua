@@ -47,7 +47,23 @@ require("lazy").setup({
     },
     {
       "nvim-treesitter/nvim-treesitter",
-      build = ":TSUpdate"
+      lazy = false,
+      priority = 999,
+      build = ":TSUpdate",
+      config = function()
+        require("nvim-treesitter.config").setup {
+          ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "javascript", "typescript" },
+          sync_install = false,
+          auto_install = true,
+          highlight = {
+            enable = true,
+            additional_vim_regex_highlighting = false,
+          },
+          indent = {
+            enable = true,
+          },
+        }
+      end
     },
     {
       "ThePrimeagen/harpoon",
@@ -86,8 +102,7 @@ require("lazy").setup({
       dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-        "MunifTanjim/nui.nvim",
-        "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+        "MunifTanjim/nui.nvim"
       },
     },
     {'sindrets/diffview.nvim'},
