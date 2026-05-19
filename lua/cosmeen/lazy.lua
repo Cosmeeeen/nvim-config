@@ -111,6 +111,12 @@ require("lazy").setup({
       'stevearc/conform.nvim',
       opts = {},
     },
+    {
+      "j-hui/fidget.nvim",
+      opts = {
+        hide_on_status = true,
+      },
+    },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
