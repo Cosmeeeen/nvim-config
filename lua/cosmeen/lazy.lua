@@ -47,11 +47,12 @@ require("lazy").setup({
     },
     {
       "nvim-treesitter/nvim-treesitter",
+      branch = "master",
       lazy = false,
       priority = 999,
       build = ":TSUpdate",
       config = function()
-        require("nvim-treesitter.config").setup {
+        require("nvim-treesitter.configs").setup {
           ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "javascript", "typescript" },
           sync_install = false,
           auto_install = true,
